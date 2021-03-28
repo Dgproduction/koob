@@ -6,21 +6,31 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import { makeStyles } from '@material-ui/core/styles';
 import AddShoppingCartOutlined from '@material-ui/icons/ShoppingCart';
 import { useSelector } from 'react-redux';
-import { Backdrop, Badge, CircularProgress, IconButton, LinearProgress } from '@material-ui/core';
+import { Backdrop, Badge, Button, CircularProgress, IconButton, LinearProgress } from '@material-ui/core';
 import AppSearchbar from './AppSearchbar';
 import AppProductsFilter from './AppProductsFilter';
+import { useHistory } from 'react-router-dom';
+import { withRouter } from "react-router-dom";
 
 export default function AppNavBar({onClickCart, onSearch}) {
+  const history = useHistory()
   const classes = useStyles()
   const cartItems = useSelector(store => store.cart.items)
   const loading = useSelector(store => store.products.loading)
+  const user = useSelector(store => store.user.user)
+  const toLogin = ()=>{
+    history.push('login')
+  }
+  const onLanding = ()=>{
+    history.push('/')
+  }
 
   return (
     <>
       <CssBaseline />
         <AppBar color="default" className={classes.appbar}>
           <Toolbar className={classes.toolbar}>
-            <Typography variant="h6" color="primary" className={classes.appTitle}>
+            <Typography variant="h6" color="secondary" className={classes.appTitle} onClick={onLanding}>
               KOOB
             </Typography>
             <AppSearchbar onSearch={onSearch} />
@@ -30,6 +40,7 @@ export default function AppNavBar({onClickCart, onSearch}) {
                 <AddShoppingCartOutlined style={{color: 'grey'}} />
               </Badge>
             </IconButton>
+            <Button color="inherit" onClick = {toLogin} >{user? user?.name : "Login"}</Button>
           </Toolbar>
         </AppBar>
       <Toolbar style={{ marginBottom: 60 }}/>
@@ -44,17 +55,17 @@ const useStyles = makeStyles(theme => ({
   appbar: {
     boxShadow: "0 4px 12px 5px rgba(0,0,0,.05)",
     background: "#fff",
-    alignItems: 'flex-start',
+    alignItems: 'center',
   },
   appTitle: {
-    fontFamily: `'Bangers', cursive`,
-    fontSize: 40
+    fontFamily: `'Times New Roman", Times, serif'`,
+    fontSize: 20
   },
   toolbar: {
     // minHeight: 128,
     minWidth: '60%',
-    marginLeft: '20%',
-    alignItems: 'center',
+    marginLeft: '5%',
+    alignItems: 'left',
     justifyContent: 'space-between',
     paddingTop: theme.spacing(1),
     paddingBottom: theme.spacing(2),

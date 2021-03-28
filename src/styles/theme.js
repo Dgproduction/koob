@@ -8,10 +8,13 @@ export default createMuiTheme({
       main: '#F08F33',
     },
     secondary: {
-      main: '#1574D9',
+      main: '#F08F33',
     },
   },
+  button: {
+      main: 'blue'
+  },
   typography: {
-    fontFamily: 'Montserrat'
+    fontFamily: `'Times New Roman", Times, serif'`,
   }
 });
